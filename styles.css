@@ -1,0 +1,48 @@
+/* RTL support for Hebrew language */
+.dir-rtl .generaltable {
+  text-align: right;
+}
+
+.dir-rtl .mform .fitem .felement {
+  margin-right: 16px;
+  margin-left: 0;
+}
+
+.dir-rtl .mform .fitem .fitemtitle {
+  text-align: right;
+}
+
+/* General styling */
+.report_originality .generaltable {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.report_originality .generaltable th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.report_originality .generaltable tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.report_originality .mform {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.report_originality .mform .fitem {
+  margin-bottom: 10px;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+  .report_originality .generaltable {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
