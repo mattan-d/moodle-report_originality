@@ -682,4 +682,3 @@ function report_originality_get_average_originality_score($mingrade, $maxgrade, 
     
     return $result;
 }
-

@@ -29,6 +29,25 @@ $ADMIN->add('reports', new admin_externalpage('reportoriginality',
         get_string('pluginname', 'report_originality'),
         new moodle_url('/report/originality/index.php')));
 
-// No report settings.
-$settings = null;
+// Add settings for the report.
+$settings = new admin_settingpage('reportoriginalitysettings', get_string('settings', 'report_originality'));
 
+if ($ADMIN->fulltree) {
+    // Logo upload setting
+    $name = 'report_originality/logo';
+    $title = get_string('logo', 'report_originality');
+    $description = get_string('logodesc', 'report_originality');
+    $setting = new admin_setting_configstoredfile($name, $title, $description, 'logo', 0, 
+        array('maxfiles' => 1, 'accepted_types' => array('image')));
+    $settings->add($setting);
+
+    // Footer text setting
+    $name = 'report_originality/footertext';
+    $title = get_string('footertext', 'report_originality');
+    $description = get_string('footertextdesc', 'report_originality');
+    $default = get_string('defaultfooter', 'report_originality');
+    $setting = new admin_setting_configtext($name, $title, $description, $default);
+    $settings->add($setting);
+}
+
+$ADMIN->add('reports', $settings);

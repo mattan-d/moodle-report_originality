@@ -66,6 +66,7 @@ $string['overall_average'] = 'ממוצע כללי';
 
 // PDF Export
 $string['exportpdf'] = 'ייצוא ל-PDF';
+$string['exportcsv'] = 'ייצוא ל-CSV';
 $string['exportreport'] = 'ייצוא דוח';
 $string['pdfreporttitle'] = 'דוח מקוריות';
 $string['pdfreportsubtitle'] = 'נוצר בתאריך {$a}';
@@ -73,3 +74,10 @@ $string['pdfreportfilters'] = 'סינון שהוחל:';
 $string['pdfreportfiltergrade'] = 'טווח ציונים: {$a->min} - {$a->max}';
 $string['pdfreportfilterdate'] = 'טווח תאריכים: {$a->start} - {$a->end}';
 
+// Settings
+$string['settings'] = 'הגדרות דוח';
+$string['logo'] = 'ל��גו דוח';
+$string['logodesc'] = 'העלה לוגו שיוצג בכותרת דוחות PDF. גודל מומלץ: 300x100 פיקסלים.';
+$string['footertext'] = 'טקסט כותרת תחתונה';
+$string['footertextdesc'] = 'הזן את הטקסט שיוצג בכותרת התחתונה של דוחות PDF.';
+$string['defaultfooter'] = 'נוצר על ידי תוסף דוחות מקוריות עבור Moodle';

@@ -2,31 +2,35 @@
 
 ## Overview
 
-The Originality Report plugin for Moodle provides administrators and teachers with comprehensive analytics and reporting tools to
-monitor originality scores across courses, assignments, and students. This plugin integrates with Moodle's plagiarism detection
-system to generate insightful reports that help identify patterns and areas requiring attention.
+The Originality Report plugin for Moodle provides administrators and teachers with comprehensive analytics and reporting tools to monitor originality scores across courses, assignments, and students. This plugin integrates with Moodle's plagiarism detection system to generate insightful reports that help identify patterns and areas requiring attention.
 
 ## Features
 
 - **Multiple Report Types**:
-    - Teachers who haven't opened reports
-    - Courses with lowest average originality scores
-    - Students with lowest average originality scores
-    - Number of assignments submitted for checking
-    - Average originality score by course and module
+  - Teachers who haven't opened reports
+  - Courses with lowest average originality scores
+  - Students with lowest average originality scores
+  - Number of assignments submitted for checking
+  - Average originality score by course and module
 
 - **Flexible Filtering**:
-    - Filter by grade range
-    - Filter by date range
-    - Reset filters with a single click
+  - Filter by grade range
+  - Filter by date range
+  - Reset filters with a single click
 
 - **Export Capabilities**:
-    - Export any report to PDF
-    - Full support for RTL languages (including Hebrew)
+  - Export any report to PDF with custom logo and footer
+  - Export any report to CSV
+  - Full support for RTL languages (including Hebrew)
+  - Filenames include date and time for easy organization
+
+- **Customization Options**:
+  - Upload a custom logo for PDF reports
+  - Set custom footer text for PDF reports
 
 - **Responsive Design**:
-    - Works on desktop and mobile devices
-    - Accessible interface
+  - Works on desktop and mobile devices
+  - Accessible interface
 
 ## Requirements
 
@@ -43,8 +47,9 @@ system to generate insightful reports that help identify patterns and areas requ
 
 ## Configuration
 
-No specific configuration is required for this plugin. Once installed, it will be available in the Reports section of the Site
-Administration.
+1. Navigate to Site Administration > Reports > Originality Reports Settings.
+2. Upload a logo to be displayed in the header of PDF reports (optional).
+3. Set custom footer text for PDF reports (optional).
 
 ## Usage
 
@@ -62,11 +67,12 @@ Administration.
 4. Click "Apply filters" to update the report.
 5. Click "Reset filters" to return to the default filter settings.
 
-### Exporting to PDF
+### Exporting Reports
 
 1. Apply the desired filters to the report.
-2. Click the "Export to PDF" button at the bottom of the report.
-3. The PDF will be generated and downloaded automatically.
+2. Click the "Export to PDF" button to download a PDF version of the report.
+3. Click the "Export to CSV" button to download a CSV version of the report.
+4. The exported files will include the current date and time in the filename.
 
 ## Permissions
 
