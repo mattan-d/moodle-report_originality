@@ -52,10 +52,10 @@ $string['average_originality_score'] = 'ציון מקוריות ממוצע';
 
 // Additional strings
 $string['department'] = 'מחלקה';
-$string['lastaccess'] = 'כניסה אחרונה';
+$string['lastaccess'] = 'כ. אחרונה';
 $string['never'] = 'אף פעם';
 $string['email'] = 'דוא"ל';
-$string['coursescount'] = 'מספר קורסים';
+$string['coursescount'] = 'מס׳ קורסים';
 $string['details'] = 'פרטים';
 $string['originality_score'] = 'ציון מקוריות';
 $string['submissions'] = 'הגשות';
@@ -76,7 +76,7 @@ $string['pdfreportfilterdate'] = 'טווח תאריכים: {$a->start} - {$a->en
 
 // Settings
 $string['settings'] = 'הגדרות דוח';
-$string['logo'] = 'ל��גו דוח';
+$string['logo'] = 'לוגו דוח';
 $string['logodesc'] = 'העלה לוגו שיוצג בכותרת דוחות PDF. גודל מומלץ: 300x100 פיקסלים.';
 $string['footertext'] = 'טקסט כותרת תחתונה';
 $string['footertextdesc'] = 'הזן את הטקסט שיוצג בכותרת התחתונה של דוחות PDF.';

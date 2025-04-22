@@ -23,10 +23,10 @@
  */
 
 require_once('../../config.php');
-require_once($CFG->libdir.'/adminlib.php');
-require_once($CFG->dirroot.'/report/originality/lib.php');
-require_once($CFG->dirroot.'/report/originality/classes/form/report_form.php');
-require_once($CFG->libdir.'/pdflib.php');
+require_once($CFG->libdir . '/adminlib.php');
+require_once($CFG->dirroot . '/report/originality/lib.php');
+require_once($CFG->dirroot . '/report/originality/classes/form/report_form.php');
+require_once($CFG->libdir . '/pdflib.php');
 
 // Check permissions.
 require_login();
@@ -76,12 +76,12 @@ echo $OUTPUT->header();
 if (has_capability('moodle/site:config', context_system::instance())) {
     $settingsurl = new moodle_url('/admin/settings.php', array('section' => 'reportoriginalitysettings'));
     echo html_writer::div(
-        html_writer::link(
-            $settingsurl,
-            get_string('settings', 'report_originality'),
-            array('class' => 'btn btn-secondary mb-3')
-        ),
-        'text-right'
+            html_writer::link(
+                    $settingsurl,
+                    get_string('settings', 'report_originality'),
+                    array('class' => 'btn btn-secondary mb-3')
+            ),
+            'text-right'
     );
 }
 
@@ -119,36 +119,36 @@ switch ($reporttype) {
 
 // Add export to PDF button
 $exportpdfurl = new moodle_url('/report/originality/index.php', array(
-    'export' => 'pdf',
-    'reporttype' => $reporttype,
-    'mingrade' => $mingrade,
-    'maxgrade' => $maxgrade,
-    'startdate' => $startdate,
-    'enddate' => $enddate
+        'export' => 'pdf',
+        'reporttype' => $reporttype,
+        'mingrade' => $mingrade,
+        'maxgrade' => $maxgrade,
+        'startdate' => $startdate,
+        'enddate' => $enddate
 ));
 
 // Add export to CSV button
 $exportcsvurl = new moodle_url('/report/originality/index.php', array(
-    'export' => 'csv',
-    'reporttype' => $reporttype,
-    'mingrade' => $mingrade,
-    'maxgrade' => $maxgrade,
-    'startdate' => $startdate,
-    'enddate' => $enddate
+        'export' => 'csv',
+        'reporttype' => $reporttype,
+        'mingrade' => $mingrade,
+        'maxgrade' => $maxgrade,
+        'startdate' => $startdate,
+        'enddate' => $enddate
 ));
 
 echo html_writer::div(
-    html_writer::link(
-        $exportpdfurl,
-        get_string('exportpdf', 'report_originality'),
-        array('class' => 'btn btn-secondary mr-2', 'target' => '_blank')
-    ) .
-    html_writer::link(
-        $exportcsvurl,
-        get_string('exportcsv', 'report_originality'),
-        array('class' => 'btn btn-secondary', 'target' => '_blank')
-    ),
-    'mt-3'
+        html_writer::link(
+                $exportpdfurl,
+                get_string('exportpdf', 'report_originality'),
+                array('class' => 'btn btn-secondary mr-2', 'target' => '_blank')
+        ) .
+        html_writer::link(
+                $exportcsvurl,
+                get_string('exportcsv', 'report_originality'),
+                array('class' => 'btn btn-secondary', 'target' => '_blank')
+        ),
+        'mt-3'
 );
 
 echo $OUTPUT->footer();
@@ -160,22 +160,22 @@ echo $OUTPUT->footer();
  */
 function display_teachers_report($teachers) {
     global $OUTPUT;
-    
+
     if (empty($teachers)) {
         echo $OUTPUT->notification(get_string('nocoursesfound', 'report_originality'), 'notifymessage');
         return;
     }
-    
+
     $table = new html_table();
     $table->head = array(
-        get_string('fullname'),
-        get_string('email', 'report_originality'),
-        get_string('department', 'report_originality'),
-        get_string('lastaccess', 'report_originality')
+            get_string('fullname'),
+            get_string('email', 'report_originality'),
+            get_string('department', 'report_originality'),
+            get_string('lastaccess', 'report_originality')
     );
     $table->attributes['class'] = 'generaltable';
     $table->data = array();
-    
+
     foreach ($teachers as $teacher) {
         $row = array();
         $row[] = fullname($teacher);
@@ -184,7 +184,7 @@ function display_teachers_report($teachers) {
         $row[] = $teacher->lastaccess ? userdate($teacher->lastaccess) : get_string('never', 'report_originality');
         $table->data[] = $row;
     }
-    
+
     echo html_writer::table($table);
 }
 
@@ -195,23 +195,23 @@ function display_teachers_report($teachers) {
  */
 function display_courses_report($courses) {
     global $OUTPUT;
-    
+
     if (empty($courses)) {
         echo $OUTPUT->notification(get_string('nocoursesfound', 'report_originality'), 'notifymessage');
         return;
     }
-    
+
     $table = new html_table();
     $table->head = array(
-        get_string('coursename', 'report_originality'),
-        get_string('enrolledstudents', 'report_originality'),
-        get_string('averagegrade', 'report_originality'),
-        get_string('completionrate', 'report_originality'),
-        get_string('startdate', 'report_originality')
+            get_string('coursename', 'report_originality'),
+            get_string('enrolledstudents', 'report_originality'),
+            get_string('averagegrade', 'report_originality'),
+            get_string('completionrate', 'report_originality'),
+            get_string('startdate', 'report_originality')
     );
     $table->attributes['class'] = 'generaltable';
     $table->data = array();
-    
+
     foreach ($courses as $course) {
         $row = array();
         $row[] = html_writer::link(new moodle_url('/course/view.php', array('id' => $course->id)), $course->fullname);
@@ -221,7 +221,7 @@ function display_courses_report($courses) {
         $row[] = userdate($course->startdate, get_string('strftimedatefullshort', 'core_langconfig'));
         $table->data[] = $row;
     }
-    
+
     echo html_writer::table($table);
 }
 
@@ -232,23 +232,23 @@ function display_courses_report($courses) {
  */
 function display_students_report($students) {
     global $OUTPUT;
-    
+
     if (empty($students)) {
         echo $OUTPUT->notification(get_string('nocoursesfound', 'report_originality'), 'notifymessage');
         return;
     }
-    
+
     $table = new html_table();
     $table->head = array(
-        get_string('fullname'),
-        get_string('email', 'report_originality'),
-        get_string('averagegrade', 'report_originality'),
-        get_string('coursescount', 'report_originality'),
-        get_string('lastaccess', 'report_originality')
+            get_string('fullname'),
+            get_string('email', 'report_originality'),
+            get_string('averagegrade', 'report_originality'),
+            get_string('coursescount', 'report_originality'),
+            get_string('lastaccess', 'report_originality')
     );
     $table->attributes['class'] = 'generaltable';
     $table->data = array();
-    
+
     foreach ($students as $student) {
         $row = array();
         $row[] = fullname($student);
@@ -258,7 +258,7 @@ function display_students_report($students) {
         $row[] = $student->lastaccess ? userdate($student->lastaccess) : get_string('never', 'report_originality');
         $table->data[] = $row;
     }
-    
+
     echo html_writer::table($table);
 }
 
@@ -269,53 +269,53 @@ function display_students_report($students) {
  */
 function display_submission_count_report($courses) {
     global $OUTPUT;
-    
+
     if (empty($courses)) {
         echo $OUTPUT->notification(get_string('nocoursesfound', 'report_originality'), 'notifymessage');
         return;
     }
-    
+
     // Display total submission count across all courses
     $totalSubmissions = 0;
     foreach ($courses as $course) {
         $totalSubmissions += $course->submission_count;
     }
-    
-    echo html_writer::tag('div', 
-        html_writer::tag('h3', get_string('submission_count', 'report_originality') . ': ' . $totalSubmissions) .
-        html_writer::tag('p', get_string('coursescount', 'report_originality') . ': ' . count($courses)),
-        array('class' => 'alert alert-info')
+
+    echo html_writer::tag('div',
+            html_writer::tag('h3', get_string('submission_count', 'report_originality') . ': ' . $totalSubmissions) .
+            html_writer::tag('p', get_string('coursescount', 'report_originality') . ': ' . count($courses)),
+            array('class' => 'alert alert-info')
     );
-    
+
     $table = new html_table();
     $table->head = array(
-        get_string('coursename', 'report_originality'),
-        get_string('submission_count', 'report_originality'),
-        get_string('details', 'report_originality')
+            get_string('coursename', 'report_originality'),
+            get_string('submission_count', 'report_originality'),
+            get_string('details', 'report_originality')
     );
     $table->attributes['class'] = 'generaltable';
     $table->data = array();
-    
+
     foreach ($courses as $course) {
         $row = array();
         $row[] = html_writer::link(new moodle_url('/course/view.php', array('id' => $course->id)), $course->fullname);
         $row[] = $course->submission_count;
-        
+
         // Create a details list of modules and their submission counts
         $moduledetails = '';
         if (!empty($course->modules)) {
             $moduledetails = html_writer::start_tag('ul', array('class' => 'module-details'));
             foreach ($course->modules as $module) {
-                $moduledetails .= html_writer::tag('li', 
-                    $module->name . ': ' . $module->submission_count);
+                $moduledetails .= html_writer::tag('li',
+                        $module->name . ': ' . $module->submission_count);
             }
             $moduledetails .= html_writer::end_tag('ul');
         }
         $row[] = $moduledetails;
-        
+
         $table->data[] = $row;
     }
-    
+
     echo html_writer::table($table);
 }
 
@@ -326,63 +326,63 @@ function display_submission_count_report($courses) {
  */
 function display_average_originality_score_report($courses) {
     global $OUTPUT;
-    
+
     if (empty($courses)) {
         echo $OUTPUT->notification(get_string('nocoursesfound', 'report_originality'), 'notifymessage');
         return;
     }
-    
+
     // Display the overall average first
     if (isset($courses[0]) && $courses[0]->id === 0) {
         $overall = $courses[0];
-        echo html_writer::tag('div', 
-            html_writer::tag('h3', get_string('average_originality_score', 'report_originality') . ': ' . 
-            number_format($overall->avg_originality_score, 2)) . 
-            html_writer::tag('p', get_string('submissions', 'report_originality') . ': ' . $overall->total_submissions),
-            array('class' => 'alert alert-info')
+        echo html_writer::tag('div',
+                html_writer::tag('h3', get_string('average_originality_score', 'report_originality') . ': ' .
+                        number_format($overall->avg_originality_score, 2)) .
+                html_writer::tag('p', get_string('submissions', 'report_originality') . ': ' . $overall->total_submissions),
+                array('class' => 'alert alert-info')
         );
-        
+
         // Remove the overall entry from the courses array
         array_shift($courses);
     }
-    
+
     // If there are no courses left after removing the overall entry
     if (empty($courses)) {
         return;
     }
-    
+
     $table = new html_table();
     $table->head = array(
-        get_string('coursename', 'report_originality'),
-        get_string('originality_score', 'report_originality'),
-        get_string('submissions', 'report_originality'),
-        get_string('details', 'report_originality')
+            get_string('coursename', 'report_originality'),
+            get_string('originality_score', 'report_originality'),
+            get_string('submissions', 'report_originality'),
+            get_string('details', 'report_originality')
     );
     $table->attributes['class'] = 'generaltable';
     $table->data = array();
-    
+
     foreach ($courses as $course) {
         $row = array();
         $row[] = html_writer::link(new moodle_url('/course/view.php', array('id' => $course->id)), $course->fullname);
         $row[] = number_format($course->avg_originality_score, 2);
         $row[] = $course->total_submissions;
-        
+
         // Create a details list of modules and their originality scores
         $moduledetails = '';
         if (!empty($course->modules)) {
             $moduledetails = html_writer::start_tag('ul', array('class' => 'module-details'));
             foreach ($course->modules as $module) {
-                $moduledetails .= html_writer::tag('li', 
-                    $module->name . ': ' . number_format($module->avg_score, 2) . ' (' . 
-                    get_string('submissions', 'report_originality') . ': ' . $module->submission_count . ')');
+                $moduledetails .= html_writer::tag('li',
+                        $module->name . ': ' . number_format($module->avg_score, 2) . ' (' .
+                        get_string('submissions', 'report_originality') . ': ' . $module->submission_count . ')');
             }
             $moduledetails .= html_writer::end_tag('ul');
         }
         $row[] = $moduledetails;
-        
+
         $table->data[] = $row;
     }
-    
+
     echo html_writer::table($table);
 }
 
@@ -397,20 +397,20 @@ function display_average_originality_score_report($courses) {
  */
 function export_report_to_pdf($reporttype, $mingrade, $maxgrade, $startdate, $enddate) {
     global $CFG, $USER, $SESSION, $DB;
-    
+
     // Validate report type to ensure it's one of the allowed types
     $validReportTypes = array(
-        'teachers_no_reports',
-        'lowest_grade_courses',
-        'lowest_grade_students',
-        'submission_count',
-        'average_originality_score'
+            'teachers_no_reports',
+            'lowest_grade_courses',
+            'lowest_grade_students',
+            'submission_count',
+            'average_originality_score'
     );
-    
+
     if (!in_array($reporttype, $validReportTypes)) {
         $reporttype = 'teachers_no_reports'; // Default to a safe option if invalid
     }
-    
+
     // Get report data
     $data = array();
     switch ($reporttype) {
@@ -435,14 +435,41 @@ function export_report_to_pdf($reporttype, $mingrade, $maxgrade, $startdate, $en
             $reporttitle = get_string('average_originality_score', 'report_originality');
             break;
     }
-    
+
+    // Define a custom PDF class that properly handles the footer
+    class OriginalityPDF extends pdf {
+        protected $footertext;
+
+        public function setFooterText($text) {
+            $this->footertext = $text;
+        }
+
+        // Override the Footer method
+        public function Footer() {
+            // Position at 15 mm from bottom
+            $this->SetY(-15);
+            // Set font
+            $this->SetFont('freesans', 'I', 8);
+            // Footer text in the center
+            $this->Cell(0, 10, $this->footertext, 0, 0, 'C');
+            // No page number
+        }
+    }
+
+    // Get footer text
+    $footertext = get_config('report_originality', 'footertext');
+    if (empty($footertext)) {
+        $footertext = get_string('defaultfooter', 'report_originality');
+    }
+
     // If no data, return empty PDF with message
     if (empty($data)) {
-        $pdf = new pdf();
+        $pdf = new OriginalityPDF();
+        $pdf->setFooterText($footertext);
         $pdf->SetTitle(get_string('pdfreporttitle', 'report_originality'));
         $pdf->SetAuthor(fullname($USER));
         $pdf->SetCreator(get_string('pluginname', 'report_originality'));
-        
+
         // Check if current language is Hebrew or Arabic and set RTL mode
         $currentlang = current_language();
         if ($currentlang == 'he' || $currentlang == 'ar') {
@@ -451,32 +478,36 @@ function export_report_to_pdf($reporttype, $mingrade, $maxgrade, $startdate, $en
             $pdf->setRTL(false);
         }
 
+        // Set up header and footer
+        $pdf->setPrintHeader(true);
+        $pdf->setHeaderMargin(10);
+        $pdf->setHeaderFont(array('freesans', '', 8));
+        $pdf->setHeaderData('', 0, get_string('pdfreporttitle', 'report_originality'), '');
+
+        // Set up footer
+        $pdf->setPrintFooter(true);
+        $pdf->setFooterMargin(10);
+        $pdf->setFooterFont(array('freesans', 'I', 8));
+
         // Always use freesans font
         $pdf->SetFont('freesans', '', 12);
-        
+
         $pdf->AddPage();
         $pdf->Cell(0, 10, get_string('nocoursesfound', 'report_originality'), 0, 1, 'C');
-        
-        // Add footer
-        $footertext = get_config('report_originality', 'footertext');
-        if (!empty($footertext)) {
-            $pdf->SetY(-15);
-            $pdf->SetFont('freesans', 'I', 8);
-            $pdf->Cell(0, 10, $footertext, 0, 0, 'C');
-        }
-        
+
         // Generate filename with date and time
         $filename = get_string('pdfreporttitle', 'report_originality') . '_' . date('Y-m-d_H-i-s') . '.pdf';
         $pdf->Output($filename, 'D');
         exit;
     }
-    
-    // Create PDF document
-    $pdf = new pdf();
+
+    // Create PDF document with proper header and footer
+    $pdf = new OriginalityPDF();
+    $pdf->setFooterText($footertext);
     $pdf->SetTitle(get_string('pdfreporttitle', 'report_originality'));
     $pdf->SetAuthor(fullname($USER));
     $pdf->SetCreator(get_string('pluginname', 'report_originality'));
-    
+
     // Check if current language is Hebrew or Arabic and set RTL mode
     $currentlang = current_language();
     $isRTL = ($currentlang == 'he' || $currentlang == 'ar');
@@ -485,60 +516,70 @@ function export_report_to_pdf($reporttype, $mingrade, $maxgrade, $startdate, $en
     } else {
         $pdf->setRTL(false);
     }
-    
+
+    // Set up header
+    $pdf->setPrintHeader(true);
+    $pdf->setHeaderMargin(10);
+    $pdf->setHeaderFont(array('freesans', '', 8));
+    $pdf->setHeaderData('', 0, get_string('pdfreporttitle', 'report_originality'), '');
+
+    // Set up footer
+    $pdf->setPrintFooter(true);
+    $pdf->setFooterMargin(10);
+    $pdf->setFooterFont(array('freesans', 'I', 8));
+
     // Always use freesans font with bold style for title
     $pdf->SetFont('freesans', 'B', 16);
-    
-    // Set up custom footer
-    $footertext = get_config('report_originality', 'footertext');
-    // We'll add the footer manually at the end of each page since SetFooterCallback is not available
-    
+
     $pdf->AddPage();
-    
+
     // Add logo if available
     $fs = get_file_storage();
     $context = context_system::instance();
     $files = $fs->get_area_files($context->id, 'report_originality', 'logo', 0, 'sortorder', false);
-    
+
     if (!empty($files)) {
         $file = reset($files);
         $logopath = $CFG->tempdir . '/' . $file->get_filename();
         $file->copy_content_to($logopath);
-        
+
         // Add logo to PDF
         $pdf->Image($logopath, 10, 10, 0, 20); // Adjust size as needed
         $pdf->Ln(25); // Add space after logo
     }
-    
+
     // Add title and subtitle
     $pdf->Cell(0, 10, get_string('pdfreporttitle', 'report_originality') . ': ' . $reporttitle, 0, 1, 'C');
-    
+
     // Use freesans with italic style for subtitle
     $pdf->SetFont('freesans', 'I', 10);
-    
-    $pdf->Cell(0, 10, get_string('pdfreportsubtitle', 'report_originality', userdate(time())), 0, 1, 'C');
-    
+
+    // Format date with day of week, day, month, year, and time (24-hour format)
+    // This format will be like: "יום שני, 21 אפריל, 2025 12:25"
+    $dateformat = '%A, %d %B, %Y %H:%M';
+    $pdf->Cell(0, 10, get_string('pdfreportsubtitle', 'report_originality', userdate(time(), $dateformat)), 0, 1, 'C');
+
     // Add filter information
     // Use freesans with bold style for filter header
     $pdf->SetFont('freesans', 'B', 12);
-    
+
     $pdf->Cell(0, 10, get_string('pdfreportfilters', 'report_originality'), 0, 1);
-    
+
     // Use freesans with normal style for filter details
     $pdf->SetFont('freesans', '', 10);
-    
+
     $gradefilter = new stdClass();
     $gradefilter->min = $mingrade;
     $gradefilter->max = $maxgrade;
     $pdf->Cell(0, 6, get_string('pdfreportfiltergrade', 'report_originality', $gradefilter), 0, 1);
-    
+
     $datefilter = new stdClass();
-    $datefilter->start = userdate($startdate);
-    $datefilter->end = userdate($enddate);
+    $datefilter->start = userdate($startdate, $dateformat);
+    $datefilter->end = userdate($enddate, $dateformat);
     $pdf->Cell(0, 6, get_string('pdfreportfilterdate', 'report_originality', $datefilter), 0, 1);
-    
+
     $pdf->Ln(10);
-    
+
     // Generate table based on report type
     try {
         switch ($reporttype) {
@@ -564,17 +605,9 @@ function export_report_to_pdf($reporttype, $mingrade, $maxgrade, $startdate, $en
         $pdf->Cell(0, 10, 'Error generating report: ' . $e->getMessage(), 0, 1, 'C');
     }
 
-    // Add footer
-    $footertext = get_config('report_originality', 'footertext');
-    if (!empty($footertext)) {
-        $pdf->SetY(-15);
-        $pdf->SetFont('freesans', 'I', 8);
-        $pdf->Cell(0, 10, $footertext, 0, 0, 'C');
-    }
-    
     // Generate filename with date and time
-    $filename = get_string('pdfreporttitle', 'report_originality') . '_' . $reporttype . '_' . date('Y-m-d_H-i-s') . '.pdf';
-    
+    $filename = get_string('pdfreporttitle', 'report_originality') . '_' . $reporttitle . '_' . date('Y-m-d') . '.pdf';
+
     // Output PDF
     $pdf->Output($filename, 'D');
     exit;
@@ -584,15 +617,15 @@ function export_report_to_pdf($reporttype, $mingrade, $maxgrade, $startdate, $en
 function export_teachers_report_to_pdf($pdf, $teachers, $isRTL) {
     // Set up table headers
     $pdf->SetFont('freesans', 'B', 10);
-    
+
     $pdf->Cell(60, 7, get_string('fullname'), 1, 0, 'C');
     $pdf->Cell(70, 7, get_string('email', 'report_originality'), 1, 0, 'C');
     $pdf->Cell(30, 7, get_string('department', 'report_originality'), 1, 0, 'C');
     $pdf->Cell(30, 7, get_string('lastaccess', 'report_originality'), 1, 1, 'C');
-    
+
     // Add data rows
     $pdf->SetFont('freesans', '', 9);
-    
+
     foreach ($teachers as $teacher) {
         $pdf->Cell(60, 6, fullname($teacher), 1, 0);
         $pdf->Cell(70, 6, $teacher->email, 1, 0);
@@ -606,16 +639,16 @@ function export_teachers_report_to_pdf($pdf, $teachers, $isRTL) {
 function export_courses_report_to_pdf($pdf, $courses, $isRTL) {
     // Set up table headers
     $pdf->SetFont('freesans', 'B', 10);
-    
+
     $pdf->Cell(70, 7, get_string('coursename', 'report_originality'), 1, 0, 'C');
     $pdf->Cell(30, 7, get_string('enrolledstudents', 'report_originality'), 1, 0, 'C');
     $pdf->Cell(30, 7, get_string('averagegrade', 'report_originality'), 1, 0, 'C');
     $pdf->Cell(30, 7, get_string('completionrate', 'report_originality'), 1, 0, 'C');
     $pdf->Cell(30, 7, get_string('startdate', 'report_originality'), 1, 1, 'C');
-    
+
     // Add data rows
     $pdf->SetFont('freesans', '', 9);
-    
+
     foreach ($courses as $course) {
         $pdf->Cell(70, 6, $course->fullname, 1, 0);
         $pdf->Cell(30, 6, $course->enrolledstudents, 1, 0, 'C');
@@ -629,16 +662,16 @@ function export_courses_report_to_pdf($pdf, $courses, $isRTL) {
 function export_students_report_to_pdf($pdf, $students, $isRTL) {
     // Set up table headers
     $pdf->SetFont('freesans', 'B', 10);
-    
+
     $pdf->Cell(60, 7, get_string('fullname'), 1, 0, 'C');
     $pdf->Cell(70, 7, get_string('email', 'report_originality'), 1, 0, 'C');
     $pdf->Cell(20, 7, get_string('averagegrade', 'report_originality'), 1, 0, 'C');
     $pdf->Cell(20, 7, get_string('coursescount', 'report_originality'), 1, 0, 'C');
     $pdf->Cell(20, 7, get_string('lastaccess', 'report_originality'), 1, 1, 'C');
-    
+
     // Add data rows
     $pdf->SetFont('freesans', '', 9);
-    
+
     foreach ($students as $student) {
         $pdf->Cell(60, 6, fullname($student), 1, 0);
         $pdf->Cell(70, 6, $student->email, 1, 0);
@@ -656,23 +689,23 @@ function export_submission_count_report_to_pdf($pdf, $courses, $isRTL) {
     foreach ($courses as $course) {
         $totalSubmissions += $course->submission_count;
     }
-    
+
     // Add summary information
     $pdf->SetFont('freesans', 'B', 12);
-    
+
     $pdf->Cell(0, 10, get_string('submission_count', 'report_originality') . ': ' . $totalSubmissions, 0, 1);
     $pdf->Cell(0, 10, get_string('coursescount', 'report_originality') . ': ' . count($courses), 0, 1);
     $pdf->Ln(5);
-    
+
     // Set up table headers
     $pdf->SetFont('freesans', 'B', 10);
-    
+
     $pdf->Cell(120, 7, get_string('coursename', 'report_originality'), 1, 0, 'C');
     $pdf->Cell(70, 7, get_string('submission_count', 'report_originality'), 1, 1, 'C');
-    
+
     // Add data rows
     $pdf->SetFont('freesans', '', 9);
-    
+
     foreach ($courses as $course) {
         $pdf->Cell(120, 6, $course->fullname, 1, 0);
         $pdf->Cell(70, 6, $course->submission_count, 1, 1, 'C');
@@ -683,33 +716,33 @@ function export_average_originality_score_report_to_pdf($pdf, $courses, $isRTL) 
     // Display the overall average first if available
     if (isset($courses[0]) && $courses[0]->id === 0) {
         $overall = $courses[0];
-        
+
         $pdf->SetFont('freesans', 'B', 12);
-        
-        $pdf->Cell(0, 10, get_string('average_originality_score', 'report_originality') . ': ' . 
-                  number_format($overall->avg_originality_score, 2), 0, 1);
+
+        $pdf->Cell(0, 10, get_string('average_originality_score', 'report_originality') . ': ' .
+                number_format($overall->avg_originality_score, 2), 0, 1);
         $pdf->Cell(0, 10, get_string('submissions', 'report_originality') . ': ' . $overall->total_submissions, 0, 1);
         $pdf->Ln(5);
-        
+
         // Remove the overall entry from the courses array
         array_shift($courses);
     }
-    
+
     // If no courses left, return
     if (empty($courses)) {
         return;
     }
-    
+
     // Set up table headers
     $pdf->SetFont('freesans', 'B', 10);
-    
+
     $pdf->Cell(100, 7, get_string('coursename', 'report_originality'), 1, 0, 'C');
     $pdf->Cell(45, 7, get_string('originality_score', 'report_originality'), 1, 0, 'C');
     $pdf->Cell(45, 7, get_string('submissions', 'report_originality'), 1, 1, 'C');
-    
+
     // Add data rows
     $pdf->SetFont('freesans', '', 9);
-    
+
     foreach ($courses as $course) {
         $pdf->Cell(100, 6, $course->fullname, 1, 0);
         $pdf->Cell(45, 6, number_format($course->avg_originality_score, 2), 1, 0, 'C');
@@ -728,20 +761,20 @@ function export_average_originality_score_report_to_pdf($pdf, $courses, $isRTL) 
  */
 function export_report_to_csv($reporttype, $mingrade, $maxgrade, $startdate, $enddate) {
     global $CFG, $USER;
-    
+
     // Validate report type to ensure it's one of the allowed types
     $validReportTypes = array(
-        'teachers_no_reports',
-        'lowest_grade_courses',
-        'lowest_grade_students',
-        'submission_count',
-        'average_originality_score'
+            'teachers_no_reports',
+            'lowest_grade_courses',
+            'lowest_grade_students',
+            'submission_count',
+            'average_originality_score'
     );
-    
+
     if (!in_array($reporttype, $validReportTypes)) {
         $reporttype = 'teachers_no_reports'; // Default to a safe option if invalid
     }
-    
+
     // Get report data
     $data = array();
     switch ($reporttype) {
@@ -766,20 +799,21 @@ function export_report_to_csv($reporttype, $mingrade, $maxgrade, $startdate, $en
             $reporttitle = get_string('average_originality_score', 'report_originality');
             break;
     }
-    
+
     // Generate filename with date and time
-    $filename = clean_filename(get_string('pdfreporttitle', 'report_originality') . '_' . $reporttype . '_' . date('Y-m-d_H-i-s') . '.csv');
-    
+    $filename = clean_filename(get_string('pdfreporttitle', 'report_originality') . '_' . $reporttype . '_' . date('Y-m-d') .
+            '.csv');
+
     // Set headers for CSV download
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename=' . $filename);
-    
+
     // Create a file handle for output
     $output = fopen('php://output', 'w');
-    
+
     // Add UTF-8 BOM for Excel compatibility
-    fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
-    
+    fprintf($output, chr(0xEF) . chr(0xBB) . chr(0xBF));
+
     // Generate CSV based on report type
     switch ($reporttype) {
         case 'teachers_no_reports':
@@ -798,7 +832,7 @@ function export_report_to_csv($reporttype, $mingrade, $maxgrade, $startdate, $en
             export_average_originality_score_report_to_csv($output, $data);
             break;
     }
-    
+
     fclose($output);
     exit;
 }
@@ -812,21 +846,21 @@ function export_report_to_csv($reporttype, $mingrade, $maxgrade, $startdate, $en
 function export_teachers_report_to_csv($output, $teachers) {
     // Write headers
     fputcsv($output, array(
-        get_string('fullname'),
-        get_string('email', 'report_originality'),
-        get_string('department', 'report_originality'),
-        get_string('lastaccess', 'report_originality')
+            get_string('fullname'),
+            get_string('email', 'report_originality'),
+            get_string('department', 'report_originality'),
+            get_string('lastaccess', 'report_originality')
     ));
-    
+
     // Write data rows
     foreach ($teachers as $teacher) {
         // Use short date format for last access
         $lastaccess = $teacher->lastaccess ? userdate($teacher->lastaccess, '%d/%m/%y') : get_string('never', 'report_originality');
         fputcsv($output, array(
-            fullname($teacher),
-            $teacher->email,
-            $teacher->department,
-            $lastaccess
+                fullname($teacher),
+                $teacher->email,
+                $teacher->department,
+                $lastaccess
         ));
     }
 }
@@ -840,21 +874,21 @@ function export_teachers_report_to_csv($output, $teachers) {
 function export_courses_report_to_csv($output, $courses) {
     // Write headers
     fputcsv($output, array(
-        get_string('coursename', 'report_originality'),
-        get_string('enrolledstudents', 'report_originality'),
-        get_string('averagegrade', 'report_originality'),
-        get_string('completionrate', 'report_originality'),
-        get_string('startdate', 'report_originality')
+            get_string('coursename', 'report_originality'),
+            get_string('enrolledstudents', 'report_originality'),
+            get_string('averagegrade', 'report_originality'),
+            get_string('completionrate', 'report_originality'),
+            get_string('startdate', 'report_originality')
     ));
-    
+
     // Write data rows
     foreach ($courses as $course) {
         fputcsv($output, array(
-            $course->fullname,
-            $course->enrolledstudents,
-            number_format($course->averagegrade, 2),
-            number_format($course->completionrate, 2),
-            userdate($course->startdate, '%d/%m/%y')
+                $course->fullname,
+                $course->enrolledstudents,
+                number_format($course->averagegrade, 2),
+                number_format($course->completionrate, 2),
+                userdate($course->startdate, '%d/%m/%y')
         ));
     }
 }
@@ -868,23 +902,23 @@ function export_courses_report_to_csv($output, $courses) {
 function export_students_report_to_csv($output, $students) {
     // Write headers
     fputcsv($output, array(
-        get_string('fullname'),
-        get_string('email', 'report_originality'),
-        get_string('averagegrade', 'report_originality'),
-        get_string('coursescount', 'report_originality'),
-        get_string('lastaccess', 'report_originality')
+            get_string('fullname'),
+            get_string('email', 'report_originality'),
+            get_string('averagegrade', 'report_originality'),
+            get_string('coursescount', 'report_originality'),
+            get_string('lastaccess', 'report_originality')
     ));
-    
+
     // Write data rows
     foreach ($students as $student) {
         // Use short date format for last access
         $lastaccess = $student->lastaccess ? userdate($student->lastaccess, '%d/%m/%y') : get_string('never', 'report_originality');
         fputcsv($output, array(
-            fullname($student),
-            $student->email,
-            number_format($student->averagegrade, 2),
-            $student->coursescount,
-            $lastaccess
+                fullname($student),
+                $student->email,
+                number_format($student->averagegrade, 2),
+                $student->coursescount,
+                $lastaccess
         ));
     }
 }
@@ -901,23 +935,23 @@ function export_submission_count_report_to_csv($output, $courses) {
     foreach ($courses as $course) {
         $totalSubmissions += $course->submission_count;
     }
-    
+
     // Write summary information
     fputcsv($output, array(get_string('submission_count', 'report_originality'), $totalSubmissions));
     fputcsv($output, array(get_string('coursescount', 'report_originality'), count($courses)));
     fputcsv($output, array()); // Empty line
-    
+
     // Write headers
     fputcsv($output, array(
-        get_string('coursename', 'report_originality'),
-        get_string('submission_count', 'report_originality')
+            get_string('coursename', 'report_originality'),
+            get_string('submission_count', 'report_originality')
     ));
-    
+
     // Write data rows
     foreach ($courses as $course) {
         fputcsv($output, array(
-            $course->fullname,
-            $course->submission_count
+                $course->fullname,
+                $course->submission_count
         ));
     }
 }
@@ -933,37 +967,37 @@ function export_average_originality_score_report_to_csv($output, $courses) {
     if (isset($courses[0]) && $courses[0]->id === 0) {
         $overall = $courses[0];
         fputcsv($output, array(
-            get_string('average_originality_score', 'report_originality'),
-            number_format($overall->avg_originality_score, 2)
+                get_string('average_originality_score', 'report_originality'),
+                number_format($overall->avg_originality_score, 2)
         ));
         fputcsv($output, array(
-            get_string('submissions', 'report_originality'),
-            $overall->total_submissions
+                get_string('submissions', 'report_originality'),
+                $overall->total_submissions
         ));
         fputcsv($output, array()); // Empty line
-        
+
         // Remove the overall entry from the courses array
         array_shift($courses);
     }
-    
+
     // If no courses left, return
     if (empty($courses)) {
         return;
     }
-    
+
     // Write headers
     fputcsv($output, array(
-        get_string('coursename', 'report_originality'),
-        get_string('originality_score', 'report_originality'),
-        get_string('submissions', 'report_originality')
+            get_string('coursename', 'report_originality'),
+            get_string('originality_score', 'report_originality'),
+            get_string('submissions', 'report_originality')
     ));
-    
+
     // Write data rows
     foreach ($courses as $course) {
         fputcsv($output, array(
-            $course->fullname,
-            number_format($course->avg_originality_score, 2),
-            $course->total_submissions
+                $course->fullname,
+                number_format($course->avg_originality_score, 2),
+                $course->total_submissions
         ));
     }
 }
