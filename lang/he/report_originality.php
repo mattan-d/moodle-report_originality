@@ -52,7 +52,7 @@ $string['average_originality_score'] = 'ציון מקוריות ממוצע';
 
 // Additional strings
 $string['department'] = 'מחלקה';
-$string['lastaccess'] = 'כ. אחרונה';
+$string['lastaccess'] = 'תאריך';
 $string['never'] = 'אף פעם';
 $string['email'] = 'דוא"ל';
 $string['coursescount'] = 'מס׳ קורסים';

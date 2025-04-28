@@ -34,7 +34,7 @@ $string['applyfilters'] = 'Apply filters';
 $string['resetfilters'] = 'Reset filters';
 $string['coursename'] = 'Course name';
 $string['enrolledstudents'] = 'Enrolled students';
-$string['averagegrade'] = 'Average grade';
+$string['averagegrade'] = 'Grade';
 $string['completionrate'] = 'Completion rate';
 $string['nocoursesfound'] = 'No courses found matching the criteria';
 $string['invalidmingrade'] = 'Minimum grade must be between 0 and 100';
@@ -47,15 +47,15 @@ $string['reporttype'] = 'Report Type';
 $string['teachers_no_reports'] = 'Teachers who haven\'t opened reports';
 $string['lowest_grade_courses'] = 'Courses with lowest average grade';
 $string['lowest_grade_students'] = 'Students with lowest average grade';
-$string['submission_count'] = 'Number of assignments submitted for checking';
+$string['submission_count'] = 'Assignments submitted';
 $string['average_originality_score'] = 'Average originality score';
 
 // Additional strings
 $string['department'] = 'Department';
-$string['lastaccess'] = 'Last access';
+$string['lastaccess'] = 'Date';
 $string['never'] = 'Never';
 $string['email'] = 'Email';
-$string['coursescount'] = 'Number of courses';
+$string['coursescount'] = 'Courses';
 $string['details'] = 'Details';
 $string['originality_score'] = 'Originality score';
 $string['submissions'] = 'Submissions';
